@@ -1,0 +1,871 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Gaussian\_Stack\_Inversion\_Refinement}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} notebook
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{beta}\PY{p}{,} \PY{n}{chisquare}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{lsqr}
+        \PY{k+kn}{from} \PY{n+nn}{utils} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{gaussian\PYZus{}stack\PYZus{}inversion}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{z\PYZus{}min}\PY{p}{,} \PY{n}{z\PYZus{}max}\PY{p}{,} \PY{n}{q\PYZus{}dist}\PY{p}{,} \PY{n}{s\PYZus{}sqr}\PY{p}{,} \PY{n}{tot\PYZus{}mass}\PY{p}{,} \PY{n}{sample\PYZus{}dev}\PY{p}{,} \PY{n}{scaling\PYZus{}factor}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lsqr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Release points in column}
+            \PY{n}{z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{z\PYZus{}min}\PY{p}{,} \PY{n}{z\PYZus{}max}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Landing points of release point centers}
+            \PY{n}{x\PYZus{}bar} \PY{o}{=} \PY{p}{[}\PY{n}{landing\PYZus{}point}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{zk}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{v}\PY{p}{)} \PY{k}{for} \PY{n}{zk} \PY{o+ow}{in} \PY{n}{z}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{}Mass distribution in the plume}
+            \PY{n}{q\PYZus{}mass} \PY{o}{=} \PY{n}{mass\PYZus{}dist\PYZus{}in\PYZus{}plume}\PY{p}{(}\PY{n}{q\PYZus{}dist}\PY{p}{,} \PY{n}{z\PYZus{}min}\PY{p}{,} \PY{n}{z\PYZus{}max}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{tot\PYZus{}mass}\PY{p}{)}
+            
+            \PY{n}{q} \PY{o}{=} \PY{n}{q\PYZus{}mass}\PY{o}{*}\PY{n}{scaling\PYZus{}factor}
+            
+            \PY{n}{input\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{n}{z}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{q\PYZus{}mass}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x\PYZus{}bar}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{input\PYZus{}table} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{input\PYZus{}data}\PY{p}{,}  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Release Height (z)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Suspended Mass (q)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scaled Mass (q)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Landing Points (x\PYZus{}bar)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            
+            \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x\PYZus{}bar}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{100000}\PY{p}{,} \PY{n}{x\PYZus{}bar}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{51}\PY{p}{)}
+            \PY{n}{x\PYZus{}range} \PY{o}{=} \PY{n}{xx}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{xx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}range}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x\PYZus{}range}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{51}\PY{p}{)}
+            \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{)}
+            \PY{n}{dep\PYZus{}mass} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{n}{sus\PYZus{}mass} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{zh} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Gaussian dispersal}
+                \PY{n}{dist} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{s\PYZus{}sqr}\PY{p}{,} \PY{n}{x\PYZus{}bar}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}bar}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{sus\PYZus{}dist} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{s\PYZus{}sqr}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{y\PYZus{}bar}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{dep\PYZus{}mass} \PY{o}{+}\PY{o}{=} \PY{n}{dist}\PY{o}{*}\PY{n}{q}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+                \PY{n}{sus\PYZus{}mass}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sus\PYZus{}dist}\PY{o}{*}\PY{n}{q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+                
+            \PY{n}{max\PYZus{}point} \PY{o}{=} \PY{n}{xx}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{unravel\PYZus{}index}\PY{p}{(}\PY{n}{dep\PYZus{}mass}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{dep\PYZus{}mass}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+        
+            \PY{n}{samp\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{n}{max\PYZus{}point}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{samp\PYZus{}cov} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{sample\PYZus{}dev}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{s\PYZus{}sqr}\PY{p}{]}\PY{p}{]}
+            \PY{n}{samp\PYZus{}x}\PY{p}{,} \PY{n}{samp\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{samp\PYZus{}mean}\PY{p}{,} \PY{n}{samp\PYZus{}cov}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            
+            \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{samp\PYZus{}x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{samp\PYZus{}y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{s\PYZus{}sqr}\PY{p}{,} \PY{n}{x\PYZus{}bar}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{coefficient\PYZus{}matrix} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+            \PY{k}{if} \PY{n}{n} \PY{o}{==} \PY{n}{p}\PY{p}{:}
+                \PY{n}{det} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:} 
+                \PY{n}{det} \PY{o}{=} \PY{k+kc}{None}
+            \PY{n}{rank} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{matrix\PYZus{}rank}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+            \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{q}\PY{p}{)}
+            
+            \PY{n}{sample\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{n}{samp\PYZus{}x}\PY{p}{,} \PY{n}{samp\PYZus{}y}\PY{p}{,} \PY{n}{m}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{sample\PYZus{}table} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{sample\PYZus{}data}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Deposit Mass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{solver}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lsqr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{lst\PYZus{}q} \PY{o}{=} \PY{n}{lsqr}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+                \PY{n}{q\PYZus{}inv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{lst\PYZus{}q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{solver}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jacobi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{)}
+                \PY{n}{P\PYZus{}inv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+                \PY{n}{cond\PYZus{}A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{P\PYZus{}inv}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{cond\PYZus{}A}\PY{p}{)}\PY{p}{)}
+                \PY{n}{y\PYZus{}sol} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{cond\PYZus{}A}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+                \PY{n}{q\PYZus{}inv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{y\PYZus{}sol}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{q\PYZus{}inv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+            \PY{n}{q\PYZus{}inv\PYZus{}mass} \PY{o}{=} \PY{n}{q\PYZus{}inv}\PY{o}{/}\PY{n}{scaling\PYZus{}factor}
+            \PY{n}{res} \PY{o}{=} \PY{n}{q\PYZus{}mass} \PY{o}{\PYZhy{}} \PY{n}{q\PYZus{}inv\PYZus{}mass}
+            \PY{n}{res\PYZus{}perc} \PY{o}{=} \PY{p}{(}\PY{n}{res}\PY{o}{/}\PY{p}{(}\PY{n}{q\PYZus{}mass}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+            \PY{n}{inversion\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{q\PYZus{}mass}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{q\PYZus{}inv}\PY{p}{,} \PY{n}{q\PYZus{}inv\PYZus{}mass}\PY{p}{,} \PY{n}{res}\PY{p}{,} \PY{n}{res\PYZus{}perc}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{inversion\PYZus{}table} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{inversion\PYZus{}data}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Suspended Mass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scaled Mass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scaled Inverted Mass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Inverted Mass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual Percentage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{inversion\PYZus{}table}\PY{p}{,} \PY{n}{sample\PYZus{}table}\PY{p}{,} \PY{n}{coefficient\PYZus{}matrix}\PY{p}{,} \PY{n}{input\PYZus{}table}\PY{p}{,} \PY{n}{det}\PY{p}{,} \PY{n}{rank}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{s\PYZus{}sqr} \PY{o}{=} \PY{l+m+mf}{1e9}
+        
+        \PY{c+c1}{\PYZsh{} Terminal Fall Velocity}
+        \PY{n}{v} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{9.4}
+        
+        \PY{c+c1}{\PYZsh{} Wind Speed}
+        \PY{n}{u} \PY{o}{=} \PY{l+m+mi}{30}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} sample std in the downwind direction}
+        \PY{n}{sample\PYZus{}dev} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{s\PYZus{}sqr} 
+        
+        \PY{c+c1}{\PYZsh{} Bottom and top of plume}
+        \PY{n}{z\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{z\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{30000}
+        
+        \PY{c+c1}{\PYZsh{} Mass ditribution in the plume}
+        \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{3}
+        \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{q\PYZus{}dist} \PY{o}{=} \PY{n}{beta}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Total Mass}
+        \PY{n}{tot\PYZus{}mass} \PY{o}{=} \PY{l+m+mf}{1e10}
+        
+        \PY{c+c1}{\PYZsh{} Number of samples on the ground}
+        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10}
+        
+        \PY{c+c1}{\PYZsh{} Number of levels in the column}
+        \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{100}
+        
+        \PY{n}{inversion\PYZus{}table}\PY{p}{,} \PY{n}{sample\PYZus{}table}\PY{p}{,} \PY{n}{coefficient\PYZus{}matrix}\PY{p}{,} \PY{n}{input\PYZus{}table}\PY{p}{,} \PY{n}{det}\PY{p}{,} \PY{n}{rank} \PY{o}{=} \PY{n}{gaussian\PYZus{}stack\PYZus{}inversion}\PY{p}{(}\PY{n}{n}\PY{p}{,} 
+                                                                                         \PY{n}{p}\PY{p}{,} 
+                                                                                         \PY{n}{z\PYZus{}min}\PY{p}{,} 
+                                                                                         \PY{n}{z\PYZus{}max}\PY{p}{,} 
+                                                                                         \PY{n}{q\PYZus{}dist}\PY{p}{,} 
+                                                                                         \PY{n}{s\PYZus{}sqr}\PY{p}{,} 
+                                                                                         \PY{n}{tot\PYZus{}mass}\PY{p}{,} 
+                                                                                         \PY{n}{sample\PYZus{}dev}\PY{p}{,} 
+                                                                                         \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lsqr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{display}\PY{p}{(}\PY{n}{input\PYZus{}table}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{inversion\PYZus{}table}\PY{p}{)}
+        \PY{n}{res\PYZus{}sqr} \PY{o}{=} \PY{n}{inversion\PYZus{}table}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{rss} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{res\PYZus{}sqr}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual Sum of Squares: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{rss}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Determinant of A (if square): }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{det}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank of A: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{rank}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sample\PYZus{}table}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Deposit Mass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{magma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{inversion\PYZus{}table}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Suspended Mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inverted Mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{inversion\PYZus{}table}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{inversion\PYZus{}table}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual Percentage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c:\textbackslash{}users\textbackslash{}nmostert\textbackslash{}envs\textbackslash{}spew\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:67: RuntimeWarning: divide by zero encountered in true\_divide
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+    Release Height (z)  Suspended Mass (q)  Scaled Mass (q)  \
+0             0.000000        0.000000e+00     0.000000e+00   
+1           303.030303        1.224365e+05     1.224365e+05   
+2           606.060606        4.847485e+05     4.847485e+05   
+3           909.090909        1.079440e+06     1.079440e+06   
+4          1212.121212        1.899015e+06     1.899015e+06   
+5          1515.151515        2.935977e+06     2.935977e+06   
+6          1818.181818        4.182830e+06     4.182830e+06   
+7          2121.212121        5.632078e+06     5.632078e+06   
+8          2424.242424        7.276225e+06     7.276225e+06   
+9          2727.272727        9.107775e+06     9.107775e+06   
+10         3030.303030        1.111923e+07     1.111923e+07   
+11         3333.333333        1.330310e+07     1.330310e+07   
+12         3636.363636        1.565188e+07     1.565188e+07   
+13         3939.393939        1.815808e+07     1.815808e+07   
+14         4242.424242        2.081420e+07     2.081420e+07   
+15         4545.454545        2.361275e+07     2.361275e+07   
+16         4848.484848        2.654623e+07     2.654623e+07   
+17         5151.515152        2.960714e+07     2.960714e+07   
+18         5454.545455        3.278799e+07     3.278799e+07   
+19         5757.575758        3.608128e+07     3.608128e+07   
+20         6060.606061        3.947952e+07     3.947952e+07   
+21         6363.636364        4.297521e+07     4.297521e+07   
+22         6666.666667        4.656085e+07     4.656085e+07   
+23         6969.696970        5.022894e+07     5.022894e+07   
+24         7272.727273        5.397200e+07     5.397200e+07   
+25         7575.757576        5.778253e+07     5.778253e+07   
+26         7878.787879        6.165302e+07     6.165302e+07   
+27         8181.818182        6.557598e+07     6.557598e+07   
+28         8484.848485        6.954392e+07     6.954392e+07   
+29         8787.878788        7.354935e+07     7.354935e+07   
+..                 ...                 ...              ...   
+70        21212.121212        1.775329e+08     1.775329e+08   
+71        21515.151515        1.763435e+08     1.763435e+08   
+72        21818.181818        1.748693e+08     1.748693e+08   
+73        22121.212121        1.731027e+08     1.731027e+08   
+74        22424.242424        1.710363e+08     1.710363e+08   
+75        22727.272727        1.686625e+08     1.686625e+08   
+76        23030.303030        1.659739e+08     1.659739e+08   
+77        23333.333333        1.629630e+08     1.629630e+08   
+78        23636.363636        1.596222e+08     1.596222e+08   
+79        23939.393939        1.559441e+08     1.559441e+08   
+80        24242.424242        1.519212e+08     1.519212e+08   
+81        24545.454545        1.475460e+08     1.475460e+08   
+82        24848.484848        1.428109e+08     1.428109e+08   
+83        25151.515152        1.377086e+08     1.377086e+08   
+84        25454.545455        1.322314e+08     1.322314e+08   
+85        25757.575758        1.263719e+08     1.263719e+08   
+86        26060.606061        1.201227e+08     1.201227e+08   
+87        26363.636364        1.134761e+08     1.134761e+08   
+88        26666.666667        1.064248e+08     1.064248e+08   
+89        26969.696970        9.896116e+07     9.896116e+07   
+90        27272.727273        9.107775e+07     9.107775e+07   
+91        27575.757576        8.276706e+07     8.276706e+07   
+92        27878.787879        7.402160e+07     7.402160e+07   
+93        28181.818182        6.483387e+07     6.483387e+07   
+94        28484.848485        5.519637e+07     5.519637e+07   
+95        28787.878788        4.510160e+07     4.510160e+07   
+96        29090.909091        3.454208e+07     3.454208e+07   
+97        29393.939394        2.351030e+07     2.351030e+07   
+98        29696.969697        1.199878e+07     1.199878e+07   
+99        30000.000000        0.000000e+00     0.000000e+00   
+
+    Landing Points (x_bar)  
+0                 0.000000  
+1               967.117988  
+2              1934.235977  
+3              2901.353965  
+4              3868.471954  
+5              4835.589942  
+6              5802.707930  
+7              6769.825919  
+8              7736.943907  
+9              8704.061896  
+10             9671.179884  
+11            10638.297872  
+12            11605.415861  
+13            12572.533849  
+14            13539.651838  
+15            14506.769826  
+16            15473.887814  
+17            16441.005803  
+18            17408.123791  
+19            18375.241779  
+20            19342.359768  
+21            20309.477756  
+22            21276.595745  
+23            22243.713733  
+24            23210.831721  
+25            24177.949710  
+26            25145.067698  
+27            26112.185687  
+28            27079.303675  
+29            28046.421663  
+..                     ...  
+70            67698.259188  
+71            68665.377176  
+72            69632.495164  
+73            70599.613153  
+74            71566.731141  
+75            72533.849130  
+76            73500.967118  
+77            74468.085106  
+78            75435.203095  
+79            76402.321083  
+80            77369.439072  
+81            78336.557060  
+82            79303.675048  
+83            80270.793037  
+84            81237.911025  
+85            82205.029014  
+86            83172.147002  
+87            84139.264990  
+88            85106.382979  
+89            86073.500967  
+90            87040.618956  
+91            88007.736944  
+92            88974.854932  
+93            89941.972921  
+94            90909.090909  
+95            91876.208897  
+96            92843.326886  
+97            93810.444874  
+98            94777.562863  
+99            95744.680851  
+
+[100 rows x 4 columns]
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+          Height  Suspended Mass   Scaled Mass  Scaled Inverted Mass  \
+0       0.000000    0.000000e+00  0.000000e+00         -1.062325e+06   
+1     303.030303    1.224365e+05  1.224365e+05         -4.616933e+05   
+2     606.060606    4.847485e+05  4.847485e+05          2.783026e+05   
+3     909.090909    1.079440e+06  1.079440e+06          1.161487e+06   
+4    1212.121212    1.899015e+06  1.899015e+06          2.191198e+06   
+5    1515.151515    2.935977e+06  2.935977e+06          3.370255e+06   
+6    1818.181818    4.182830e+06  4.182830e+06          4.700936e+06   
+7    2121.212121    5.632078e+06  5.632078e+06          6.184945e+06   
+8    2424.242424    7.276225e+06  7.276225e+06          7.823399e+06   
+9    2727.272727    9.107775e+06  9.107775e+06          9.616801e+06   
+10   3030.303030    1.111923e+07  1.111923e+07          1.156503e+07   
+11   3333.333333    1.330310e+07  1.330310e+07          1.366734e+07   
+12   3636.363636    1.565188e+07  1.565188e+07          1.592233e+07   
+13   3939.393939    1.815808e+07  1.815808e+07          1.832796e+07   
+14   4242.424242    2.081420e+07  2.081420e+07          2.088155e+07   
+15   4545.454545    2.361275e+07  2.361275e+07          2.357978e+07   
+16   4848.484848    2.654623e+07  2.654623e+07          2.641871e+07   
+17   5151.515152    2.960714e+07  2.960714e+07          2.939379e+07   
+18   5454.545455    3.278799e+07  3.278799e+07          3.249987e+07   
+19   5757.575758    3.608128e+07  3.608128e+07          3.573124e+07   
+20   6060.606061    3.947952e+07  3.947952e+07          3.908165e+07   
+21   6363.636364    4.297521e+07  4.297521e+07          4.254435e+07   
+22   6666.666667    4.656085e+07  4.656085e+07          4.611211e+07   
+23   6969.696970    5.022894e+07  5.022894e+07          4.977725e+07   
+24   7272.727273    5.397200e+07  5.397200e+07          5.353172e+07   
+25   7575.757576    5.778253e+07  5.778253e+07          5.736711e+07   
+26   7878.787879    6.165302e+07  6.165302e+07          6.127471e+07   
+27   8181.818182    6.557598e+07  6.557598e+07          6.524554e+07   
+28   8484.848485    6.954392e+07  6.954392e+07          6.927042e+07   
+29   8787.878788    7.354935e+07  7.354935e+07          7.334002e+07   
+..           ...             ...           ...                   ...   
+70  21212.121212    1.775329e+08  1.775329e+08          1.775727e+08   
+71  21515.151515    1.763435e+08  1.763435e+08          1.764742e+08   
+72  21818.181818    1.748693e+08  1.748693e+08          1.750892e+08   
+73  22121.212121    1.731027e+08  1.731027e+08          1.734075e+08   
+74  22424.242424    1.710363e+08  1.710363e+08          1.714186e+08   
+75  22727.272727    1.686625e+08  1.686625e+08          1.691119e+08   
+76  23030.303030    1.659739e+08  1.659739e+08          1.664772e+08   
+77  23333.333333    1.629630e+08  1.629630e+08          1.635042e+08   
+78  23636.363636    1.596222e+08  1.596222e+08          1.601830e+08   
+79  23939.393939    1.559441e+08  1.559441e+08          1.565043e+08   
+80  24242.424242    1.519212e+08  1.519212e+08          1.524590e+08   
+81  24545.454545    1.475460e+08  1.475460e+08          1.480387e+08   
+82  24848.484848    1.428109e+08  1.428109e+08          1.432359e+08   
+83  25151.515152    1.377086e+08  1.377086e+08          1.380438e+08   
+84  25454.545455    1.322314e+08  1.322314e+08          1.324566e+08   
+85  25757.575758    1.263719e+08  1.263719e+08          1.264697e+08   
+86  26060.606061    1.201227e+08  1.201227e+08          1.200795e+08   
+87  26363.636364    1.134761e+08  1.134761e+08          1.132839e+08   
+88  26666.666667    1.064248e+08  1.064248e+08          1.060821e+08   
+89  26969.696970    9.896116e+07  9.896116e+07          9.847504e+07   
+90  27272.727273    9.107775e+07  9.107775e+07          9.046499e+07   
+91  27575.757576    8.276706e+07  8.276706e+07          8.205609e+07   
+92  27878.787879    7.402160e+07  7.402160e+07          7.325423e+07   
+93  28181.818182    6.483387e+07  6.483387e+07          6.406710e+07   
+94  28484.848485    5.519637e+07  5.519637e+07          5.450432e+07   
+95  28787.878788    4.510160e+07  4.510160e+07          4.457739e+07   
+96  29090.909091    3.454208e+07  3.454208e+07          3.429976e+07   
+97  29393.939394    2.351030e+07  2.351030e+07          2.368687e+07   
+98  29696.969697    1.199878e+07  1.199878e+07          1.275605e+07   
+99  30000.000000    0.000000e+00  0.000000e+00          1.526599e+06   
+
+    Inverted Mass      Residual  Residual Percentage  
+0   -1.062325e+06  1.062325e+06                  inf  
+1   -4.616933e+05  5.841298e+05           477.087996  
+2    2.783026e+05  2.064460e+05            42.588260  
+3    1.161487e+06 -8.204685e+04            -7.600872  
+4    2.191198e+06 -2.921826e+05           -15.386010  
+5    3.370255e+06 -4.342782e+05           -14.791607  
+6    4.700936e+06 -5.181055e+05           -12.386481  
+7    6.184945e+06 -5.528669e+05            -9.816392  
+8    7.823399e+06 -5.471733e+05            -7.520015  
+9    9.616801e+06 -5.090259e+05            -5.588916  
+10   1.156503e+07 -4.458020e+05            -4.009288  
+11   1.366734e+07 -3.642436e+05            -2.738036  
+12   1.592233e+07 -2.704512e+05            -1.727915  
+13   1.832796e+07 -1.698815e+05            -0.935570  
+14   2.088155e+07 -6.734873e+04            -0.323571  
+15   2.357978e+07  3.296843e+04             0.139621  
+16   2.641871e+07  1.275166e+05             0.480357  
+17   2.939379e+07  2.133523e+05             0.720611  
+18   3.249987e+07  2.881229e+05             0.878745  
+19   3.573124e+07  3.500426e+05             0.970150  
+20   3.908165e+07  3.978653e+05             1.007776  
+21   4.254435e+07  4.308526e+05             1.002561  
+22   4.611211e+07  4.487391e+05             0.963769  
+23   4.977725e+07  4.516944e+05             0.899271  
+24   5.353172e+07  4.402815e+05             0.815759  
+25   5.736711e+07  4.154139e+05             0.718927  
+26   6.127471e+07  3.783094e+05             0.613610  
+27   6.524554e+07  3.304431e+05             0.503909  
+28   6.927042e+07  2.734998e+05             0.393276  
+29   7.334002e+07  2.093243e+05             0.284604  
+..            ...           ...                  ...  
+70   1.775727e+08 -3.979260e+04            -0.022414  
+71   1.764742e+08 -1.306286e+05            -0.074076  
+72   1.750892e+08 -2.199471e+05            -0.125778  
+73   1.734075e+08 -3.048334e+05            -0.176100  
+74   1.714186e+08 -3.823080e+05            -0.223525  
+75   1.691119e+08 -4.494053e+05            -0.266452  
+76   1.664772e+08 -5.032588e+05            -0.303216  
+77   1.635042e+08 -5.411941e+05            -0.332096  
+78   1.601830e+08 -5.608294e+05            -0.351348  
+79   1.565043e+08 -5.601801e+05            -0.359219  
+80   1.524590e+08 -5.377697e+05            -0.353979  
+81   1.480387e+08 -4.927435e+05            -0.333959  
+82   1.432359e+08 -4.249858e+05            -0.297586  
+83   1.380438e+08 -3.352377e+05            -0.243440  
+84   1.324566e+08 -2.252155e+05            -0.170319  
+85   1.264697e+08 -9.772836e+04            -0.077334  
+86   1.200795e+08  4.320719e+04             0.035969  
+87   1.132839e+08  1.922559e+05             0.169424  
+88   1.060821e+08  3.426577e+05             0.321972  
+89   9.847504e+07  4.861283e+05             0.491231  
+90   9.046499e+07  6.127668e+05             0.672795  
+91   8.205609e+07  7.109730e+05             0.859005  
+92   7.325423e+07  7.673741e+05             1.036689  
+93   6.406710e+07  7.667629e+05             1.182658  
+94   5.450432e+07  6.920482e+05             1.253793  
+95   4.457739e+07  5.242181e+05             1.162305  
+96   3.429976e+07  2.423169e+05             0.701512  
+97   2.368687e+07 -1.765634e+05            -0.751004  
+98   1.275605e+07 -7.572762e+05            -6.311279  
+99   1.526599e+06 -1.526599e+06                 -inf  
+
+[100 rows x 7 columns]
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Residual Sum of Squares: 17815287198415.434
+Determinant of A (if square): None
+Rank of A: 10
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x260834d9828>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} p\PYZus{}list = list(range(3,30))}
+        \PY{c+c1}{\PYZsh{} scales = np.logspace(\PYZhy{}10, 0, 30)}
+        
+        \PY{c+c1}{\PYZsh{} sig = 3*s\PYZus{}sqr}
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{} Bottom and top of plume}
+        \PY{c+c1}{\PYZsh{} z\PYZus{}min = 0}
+        \PY{c+c1}{\PYZsh{} z\PYZus{}max = 30000}
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{} Parameters of mass ditribution in the plume}
+        \PY{c+c1}{\PYZsh{} a = 3}
+        \PY{c+c1}{\PYZsh{} b = 2}
+        
+        \PY{c+c1}{\PYZsh{} tot\PYZus{}mass = 1e10}
+        
+        \PY{c+c1}{\PYZsh{} q\PYZus{}dist = beta(a,b)}
+        
+        \PY{c+c1}{\PYZsh{} resses = np.zeros((len(p\PYZus{}list), len(scales)))}
+        \PY{c+c1}{\PYZsh{} dets = np.zeros((len(p\PYZus{}list), len(scales)))}
+        \PY{c+c1}{\PYZsh{} conds = np.zeros((len(p\PYZus{}list), len(scales)))}
+        \PY{c+c1}{\PYZsh{} ranks = np.zeros((len(p\PYZus{}list), len(scales)))}
+        \PY{c+c1}{\PYZsh{} for i, p in enumerate(p\PYZus{}list):}
+        \PY{c+c1}{\PYZsh{}     for j, sc in enumerate(scales):}
+        \PY{c+c1}{\PYZsh{}         inversion\PYZus{}table, sample\PYZus{}table, coefficient\PYZus{}matrix, input\PYZus{}table, det, rank = run\PYZus{}sim(p, }
+        \PY{c+c1}{\PYZsh{}                                                                                  p, }
+        \PY{c+c1}{\PYZsh{}                                                                                  z\PYZus{}min, }
+        \PY{c+c1}{\PYZsh{}                                                                                  z\PYZus{}max, }
+        \PY{c+c1}{\PYZsh{}                                                                                  q\PYZus{}dist, }
+        \PY{c+c1}{\PYZsh{}                                                                                  s\PYZus{}sqr, }
+        \PY{c+c1}{\PYZsh{}                                                                                  tot\PYZus{}mass, }
+        \PY{c+c1}{\PYZsh{}                                                                                  sig,}
+        \PY{c+c1}{\PYZsh{}                                                                                  solver=\PYZdq{}lsqr\PYZdq{})}
+        \PY{c+c1}{\PYZsh{}         cond = np.linalg.cond(coefficient\PYZus{}matrix.values)}
+        \PY{c+c1}{\PYZsh{}         res\PYZus{}sqr = inversion\PYZus{}table[\PYZdq{}Residual\PYZdq{}].values**2}
+        \PY{c+c1}{\PYZsh{}         rss = sum(res\PYZus{}sqr)}
+        \PY{c+c1}{\PYZsh{}         resses[i,j] = rss}
+        \PY{c+c1}{\PYZsh{}         dets[i,j] = det}
+        \PY{c+c1}{\PYZsh{}         conds[i,j] = cond}
+        \PY{c+c1}{\PYZsh{}         ranks[i,j] = rank}
+        
+        \PY{c+c1}{\PYZsh{} plt.figure()}
+        \PY{c+c1}{\PYZsh{} plt.imshow(resses, cmap=\PYZdq{}magma\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Varying both Sample Spread and Column Levels\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.xlabel(\PYZdq{}Scale Down\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZdq{}Column Levels (p)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} cbar = plt.colorbar()}
+        \PY{c+c1}{\PYZsh{} cbar.set\PYZus{}label(\PYZdq{}RSS\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} locs = list(range(len(scales)))}
+        \PY{c+c1}{\PYZsh{} locs = locs[::5]}
+        \PY{c+c1}{\PYZsh{} labs = [\PYZsq{}\PYZpc{}.1E\PYZsq{}\PYZpc{}s for s in scales[::5]]}
+        \PY{c+c1}{\PYZsh{} plt.xticks(locs, labs, rotation=60)}
+        \PY{c+c1}{\PYZsh{} plt.show()}
+        
+        \PY{c+c1}{\PYZsh{} plt.figure()}
+        \PY{c+c1}{\PYZsh{} plt.imshow(np.log(resses), cmap=\PYZdq{}magma\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Varying both Sample Spread and Column Levels\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.xlabel(\PYZdq{}Scale Down\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZdq{}Column Levels (p)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} cbar = plt.colorbar()}
+        \PY{c+c1}{\PYZsh{} cbar.set\PYZus{}label(\PYZdq{}log(RSS)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} locs = list(range(len(scales)))}
+        \PY{c+c1}{\PYZsh{} locs = locs[::5]}
+        \PY{c+c1}{\PYZsh{} labs = [\PYZsq{}\PYZpc{}.1E\PYZsq{}\PYZpc{}s for s in scales[::5]]}
+        \PY{c+c1}{\PYZsh{} plt.xticks(locs, labs, rotation=60)}
+        \PY{c+c1}{\PYZsh{} plt.show()}
+        
+        \PY{c+c1}{\PYZsh{} plt.figure()}
+        \PY{c+c1}{\PYZsh{} plt.imshow(np.log(dets), cmap=\PYZdq{}magma\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Determinant using both Sample Spread and Column Levels\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.xlabel(\PYZdq{}Scale Down\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZdq{}Column Levels (p)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} cbar = plt.colorbar()}
+        \PY{c+c1}{\PYZsh{} cbar.set\PYZus{}label(\PYZdq{}log(det(A))\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} locs = list(range(len(scales)))}
+        \PY{c+c1}{\PYZsh{} locs = locs[::5]}
+        \PY{c+c1}{\PYZsh{} labs = [\PYZsq{}\PYZpc{}.1E\PYZsq{}\PYZpc{}s for s in scales[::5]]}
+        \PY{c+c1}{\PYZsh{} plt.xticks(locs, labs, rotation=60)}
+        \PY{c+c1}{\PYZsh{} plt.show()}
+        
+        \PY{c+c1}{\PYZsh{} plt.figure()}
+        \PY{c+c1}{\PYZsh{} plt.imshow(np.log(conds), cmap=\PYZdq{}magma\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Condition number using both Sample Spread and Column Levels\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.xlabel(\PYZdq{}Scale Down\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZdq{}Column Levels (p)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} cbar = plt.colorbar()}
+        \PY{c+c1}{\PYZsh{} cbar.set\PYZus{}label(\PYZdq{}log(cond(A))\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} locs = list(range(len(scales)))}
+        \PY{c+c1}{\PYZsh{} locs = locs[::5]}
+        \PY{c+c1}{\PYZsh{} labs = [\PYZsq{}\PYZpc{}.1E\PYZsq{}\PYZpc{}s for s in scales[::5]]}
+        \PY{c+c1}{\PYZsh{} plt.xticks(locs, labs, rotation=60)}
+        \PY{c+c1}{\PYZsh{} plt.show()}
+        
+        
+        \PY{c+c1}{\PYZsh{} plt.figure()}
+        \PY{c+c1}{\PYZsh{} plt.imshow(rank, cmap=\PYZdq{}magma\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Ranks using both Sample Spread and Column Levels\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.xlabel(\PYZdq{}Scale Down\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZdq{}Column Levels (p)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} cbar = plt.colorbar()}
+        \PY{c+c1}{\PYZsh{} cbar.set\PYZus{}label(\PYZdq{}ank(A)\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} locs = list(range(len(scales)))}
+        \PY{c+c1}{\PYZsh{} locs = locs[::5]}
+        \PY{c+c1}{\PYZsh{} labs = [\PYZsq{}\PYZpc{}.1E\PYZsq{}\PYZpc{}s for s in scales[::5]]}
+        \PY{c+c1}{\PYZsh{} plt.xticks(locs, labs, rotation=60)}
+        \PY{c+c1}{\PYZsh{} plt.show()}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
